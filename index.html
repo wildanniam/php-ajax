@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpro Mod 10/title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            input,
+            button {
+                padding: 10px;
+                margin: 5px;
+            }
+
+            #response {
+                margin-top: 20px;
+                font-weight: bold;
+            }
+
+            .error {
+                color: red;
+            }
+        </style>
+</head>
+
+<body>
+    <h1>Form Sapa Menggunakan AJAX</h1>
+    <form id="formSapa">
+        <input type="text" id="nama" name="nama" placeholder="Masukkan Nama">
+        <button type="button" id="kirim">Kirim</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('#kirim').click(function () {
+                var nama = $('#nama').val();
+                if (nama.trim() === "") {
+                    $('#response').html('<span class="error">Nama tidak boleh kosong!</span>');
+                } else {
+                    $.ajax({
+                        url: 'server.php',
+                        type: 'POST',
+                        data: { nama: nama },
+                        success: function (response) {
+                            $('#response').html(response);
+                        },
+                        error: function () {
+                            $('#response').html('<span class="error">Terjadi kesalahan pada server.</span>');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
